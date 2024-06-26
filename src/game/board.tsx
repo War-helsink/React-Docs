@@ -2,8 +2,7 @@ import React from "react";
 import Square from "./square";
 
 interface BoardProp {
-	board: number;
-	square: number;
+	cells: number;
 	squares: string[];
 	xIsNext: boolean;
 	onClick: (i: number) => void;
@@ -11,9 +10,9 @@ interface BoardProp {
 
 export default class Board extends React.Component<BoardProp> {
 	renderSquare(index: number) {
-		const { square } = this.props;
+		const { cells } = this.props;
 		const rows = [];
-		for (let i = 0; i < square; i += 1) {
+		for (let i = 0; i < cells; i += 1) {
 			rows.push(
 				<Square
 					key={`key-square-${index + i}`}
@@ -26,10 +25,10 @@ export default class Board extends React.Component<BoardProp> {
 	}
 
 	renderBoard() {
-		const { board, square } = this.props;
+		const { cells } = this.props;
 		const rows = [];
 
-		for (let i = 0; i < board * square; i += square) {
+		for (let i = 0; i < cells * cells; i += cells) {
 			rows.push(
 				<div className="board-row" key={`key-board-${i}`}>
 					{this.renderSquare(i)}
@@ -41,10 +40,6 @@ export default class Board extends React.Component<BoardProp> {
 	}
 
 	render() {
-		return (
-			<div>
-				{this.renderBoard()}
-			</div>
-		);
+		return <div>{this.renderBoard()}</div>;
 	}
 }

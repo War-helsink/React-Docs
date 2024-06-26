@@ -9,13 +9,18 @@ interface GameState {
 	xIsNext: boolean;
 }
 
-class Game extends React.Component<unknown, GameState> {
-	constructor(props: GameState) {
+interface GameProps {
+	cells: number
+}
+
+
+class Game extends React.Component<GameProps, GameState> {
+	constructor(props: GameProps) {
 		super(props);
 		this.state = {
 			history: [
 				{
-					squares: Array(9).fill(null),
+					squares: Array(props.cells * props.cells).fill(null),
 				},
 			],
 			stepNumber: 0,
@@ -27,7 +32,7 @@ class Game extends React.Component<unknown, GameState> {
 		const history = this.state.history.slice(0, this.state.stepNumber + 1);
 		const current = history[history.length - 1];
 		const squares = current.squares.slice();
-		if (calculateWinner(squares) || squares[index]) {
+		if (calculateWinner(squares, this.props.cells) || squares[index]) {
 			return;
 		}
 		squares[index] = this.state.xIsNext ? "X" : "O";
@@ -52,7 +57,7 @@ class Game extends React.Component<unknown, GameState> {
 	render() {
 		const history = this.state.history;
 		const current = history[this.state.stepNumber];
-		const winner = calculateWinner(current.squares);
+		const winner = calculateWinner(current.squares, this.props.cells);
 		let status = `Next player: ${this.state.xIsNext ? "X" : "O"}`;
 		if (winner) {
 			status = `Winner: ${winner}`;
@@ -71,8 +76,7 @@ class Game extends React.Component<unknown, GameState> {
 			<div className="game">
 				<div className="game-board">
 					<Board
-						board={3}
-						square={3}
+						cells={this.props.cells}
 						squares={current.squares}
 						xIsNext={this.state.xIsNext}
 						onClick={(i) => this.handleClick(i)}
