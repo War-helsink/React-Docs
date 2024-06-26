@@ -1,11 +1,15 @@
 import React, { StrictMode } from "react";
 import ReactDOM from 'react-dom/client';
 import Game from './game';
+import Todo from "./todo";
+import MarkdownEditor from "./markdown-editor";
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <StrictMode>
     <Game cells={3} />
+    <Todo />
+    <MarkdownEditor />
   </StrictMode>
 );
 

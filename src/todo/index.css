@@ -1,0 +1,14 @@
+.todo-form{
+    display: flex;
+    flex-direction: column;
+    align-items: baseline
+}
+
+
+.todo-form > *{
+    margin: 2.5px;
+}
+
+.todo-list > *{
+    margin: 2.5px;
+}

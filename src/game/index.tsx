@@ -67,7 +67,7 @@ class Game extends React.Component<GameProps, GameState> {
 			const desc = move ? `Go to move #${move}` : "Go to game start";
 			return (
 				<li key={`key-moves-${move.toString()}`}>
-					<button onClick={() => this.jumpTo(move)}>{desc}</button>
+					<button type="button" onClick={() => this.jumpTo(move)}>{desc}</button>
 				</li>
 			);
 		});
