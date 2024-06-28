@@ -17,7 +17,7 @@ export default class Board extends React.Component<BoardProp> {
 				<Square
 					key={`key-square-${index + i}`}
 					value={this.props.squares[index + i]}
-					onClick={() => this.props.onClick(index + i)}
+					onClick={this.props.onClick.bind(this, index + i)}
 				/>,
 			);
 		}

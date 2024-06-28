@@ -25,26 +25,26 @@ class Todo extends React.Component<unknown, TodoState> {
 		this.setState({ text: "", items: items });
 	}
 
-	handleDelete(index: number){
+	handleDelete = (index: number) => {
 		const items = this.state.items.slice();
 		items.splice(index, 1);
 		this.setState({ items: items });
-	}
+	};
 
-	handleChange(even: React.ChangeEvent<HTMLInputElement>) {
+	handleChange = (even: React.ChangeEvent<HTMLInputElement>) => {
 		this.setState({ text: even.target.value });
-	}
+	};
 
 	render() {
 		return (
 			<div>
 				<h3>Список справ</h3>
-				<TodoList items={this.state.items} onDelete={(index)=>this.handleDelete(index)} />
+				<TodoList items={this.state.items} onDelete={this.handleDelete} />
 				<form className="todo-form" onSubmit={(ev) => this.handleSubmit(ev)}>
 					<label htmlFor="new-todo">Що потрібно зробити?</label>
 					<input
 						id="new-todo"
-						onChange={(ev) => this.handleChange(ev)}
+						onChange={this.handleChange}
 						value={this.state.text}
 					/>
 					<button type="submit">Додати #{this.state.items.length + 1}</button>
@@ -56,7 +56,7 @@ class Todo extends React.Component<unknown, TodoState> {
 
 interface TodoListProps {
 	items: string[];
-	onDelete: (index: number)=>void
+	onDelete: (index: number) => void;
 }
 
 export class TodoList extends React.Component<TodoListProps> {
@@ -64,7 +64,12 @@ export class TodoList extends React.Component<TodoListProps> {
 		return (
 			<ul className="todo-list">
 				{this.props.items.map((item, index) => (
-					<li key={`key-li-${index.toString()}`}>{item} <button type="button" onClick={()=>this.props.onDelete(index)}>Видалити</button></li>
+					<li key={`key-li-${index.toString()}`}>
+						{item}{" "}
+						<button type="button" onClick={this.props.onDelete.bind(this, index)}>
+							Видалити
+						</button>
+					</li>
 				))}
 			</ul>
 		);

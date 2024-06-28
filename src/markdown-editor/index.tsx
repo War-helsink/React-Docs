@@ -15,9 +15,9 @@ class MarkdownEditor extends React.Component<unknown, MarkdownEditorState> {
 		};
 	}
 
-	handleChange(even: React.ChangeEvent<HTMLTextAreaElement>) {
+	handleChange = (even: React.ChangeEvent<HTMLTextAreaElement>) => {
 		this.setState({ text: even.target.value });
-	}
+	};
 
 	getRawMarkup() {
 		return { __html: this.md.render(this.state.text) };
@@ -34,7 +34,7 @@ class MarkdownEditor extends React.Component<unknown, MarkdownEditorState> {
 					<br />
 					<textarea
 						id="markdown-content"
-						onChange={(ev) => this.handleChange(ev)}
+						onChange={this.handleChange}
 						defaultValue={this.state.text}
 					/>
 				</div>
